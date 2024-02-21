@@ -1,0 +1,84 @@
+@font-face {
+    font-display: swap;
+    font-style: normal;
+    src: url("assets/fonts/EncodeSansRegular.ttf");
+    font-family: "Encode Sans";
+    font-weight: 400;
+}
+@font-face {
+    font-display: swap;
+    font-style: normal;
+    src: url("assets/fonts/RobotoRomanRegular.ttf");
+    font-family: "Roboto";
+    font-weight: 400;
+}
+@font-face {
+    font-display: swap;
+    font-style: normal;
+    src: url("assets/fonts/PlusJakartaSansRomanSemiBold.ttf");
+    font-family: "Plus Jakarta Sans";
+    font-weight: 600;
+}
+@font-face {
+    font-display: swap;
+    font-style: normal;
+    src: url("assets/fonts/PlusJakartaSansRomanMedium.ttf");
+    font-family: "Plus Jakarta Sans";
+    font-weight: 500;
+}
+@font-face {
+    font-display: swap;
+    font-style: normal;
+    src: url("assets/fonts/RobotoItalicCondensed.ttf");
+    font-family: "Roboto";
+    font-weight: 400;
+}
+@font-face {
+    font-display: swap;
+    font-style: normal;
+    src: url("assets/fonts/PlusJakartaSansRomanRegular.ttf");
+    font-family: "Plus Jakarta Sans";
+    font-weight: 400;
+}
+@font-face {
+    font-display: swap;
+    font-style: normal;
+    src: url("assets/fonts/PlusJakartaSansSemiBold.ttf");
+    font-family: "Plus Jakarta Sans";
+    font-weight: 600;
+}
+@font-face {
+    font-display: swap;
+    font-style: normal;
+    src: url("assets/fonts/PlusJakartaSansMedium.ttf");
+    font-family: "Plus Jakarta Sans";
+    font-weight: 500;
+}
+@font-face {
+    font-display: swap;
+    font-style: normal;
+    src: url("assets/fonts/OpenSansBold.ttf");
+    font-family: "Open Sans";
+    font-weight: 700;
+}
+@font-face {
+    font-display: swap;
+    font-style: normal;
+    src: url("assets/fonts/OpenSansRomanSemiBold.ttf");
+    font-family: "Open Sans";
+    font-weight: 600;
+}
+@font-face {
+    font-display: swap;
+    font-style: normal;
+    src: url("assets/fonts/OpenSansRomanExtraBold.ttf");
+    font-family: "Open Sans";
+    font-weight: 800;
+}
+@font-face {
+    font-display: swap;
+    font-style: normal;
+    src: url("assets/fonts/OpenSansRomanRegular.ttf");
+    font-family: "Open Sans";
+    font-weight: 400;
+}
