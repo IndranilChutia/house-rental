@@ -13,7 +13,7 @@ const variants = {
 };
 const sizes = {
     xs: "p-2",
-    sm: "px-4 py-2",
+    sm: "px-5 py-2",
     md: "px-8 py-3",
     lg: "px-10 py-6",
 };
