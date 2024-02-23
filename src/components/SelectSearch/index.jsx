@@ -21,7 +21,7 @@ const customStyles = {
     // Example styles for the options in the dropdown
     option: (provided, state) => ({
         ...provided,
-        backgroundColor: state.isSelected ? '#007bff' : 'white',
+        backgroundColor: state.isSelected ? '#0d1025' : 'white',
         color: state.isSelected ? 'white' : 'black',
         '&:hover': {
             backgroundColor: state.isSelected ? '#0056b3' : '#f0f0f0',

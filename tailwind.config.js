@@ -7,6 +7,7 @@ export default {
   theme: {
     fontFamily: {
       'display': ["Encode Sans"],
+      'openSans': ["Open Sans"]
     },
     container: {
       padding: {

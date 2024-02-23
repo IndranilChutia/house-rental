@@ -1,10 +1,11 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { RedirectToSignIn, SignedIn, SignedOut } from '@clerk/clerk-react';
+import { Button } from '@components';
 
-// const LandingPage = React.lazy(() => import("pages/LandingPage"));
 import LandingPage from "pages/Client/LandingPage";
 const ClientSettings = React.lazy(() => import("pages/Client/ClientSettings"));
-import { RedirectToSignIn, SignedIn, SignedOut } from '@clerk/clerk-react';
+const Properties = React.lazy(() => import("pages/Client/Properties"));
 
 const AppRoutes = () => {
     return (
@@ -12,7 +13,7 @@ const AppRoutes = () => {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<LandingPage />} />
-                    <Route path="/properties" element={<LandingPage />} />
+                    <Route path="/properties" element={<Properties />} />
                     <Route path="/settings" element={
                         <>
                             <SignedIn><ClientSettings /></SignedIn>
@@ -20,6 +21,9 @@ const AppRoutes = () => {
                         </>
                     }
                     />
+                    <Route path="/property/:id" element={<h1>Property Details</h1>} />
+
+                    <Route path="*" element={<h1>Not Found <Link to='/'><Button>Back to Home</Button></Link></h1>} />
                 </Routes>
             </BrowserRouter>
         </React.Suspense>
