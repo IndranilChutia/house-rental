@@ -20,8 +20,8 @@ const VerticalCard = ({
     return (
         <div className='h-full max-w-96 overflow-hidden rounded-md cursor-pointer'>
             <Link to={`/property/${id}`}>
-                <div className='max-h-80 object-fill overflow-hidden rounded-xl w-full bg-slate-200'>
-                    {image ? <img className="h-full" src={image} alt={name} /> : <div className='w-full h-80 flex justify-center items-center text-7xl text-white'><IoMdImages /></div>}
+                <div className='max-h-80 h-80 overflow-hidden rounded-xl w-full bg-slate-200'>
+                    {image ? <img className="h-full w-full object-cover" src={image} alt={name} /> : <div className='w-full h-80 flex justify-center items-center text-7xl text-white'><IoMdImages /></div>}
                 </div>
 
                 <div className='my-3 mx-2'>

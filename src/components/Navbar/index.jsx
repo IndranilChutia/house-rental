@@ -30,7 +30,7 @@ const Navbar = () => {
         <div className='w-full my-2 h-10 flex justify-center'>
             <div className='container flex justify-between'>
                 <div className='h-full flex items-center gap-16'>
-                    <img className='h-full' src={logo} alt="logo" />
+                    <Link to={'/'} className='h-full'><img className='h-full' src={logo} alt="logo" /></Link>
                     <div className='flex gap-10'>
                         {routes.map((item) => {
                             return (

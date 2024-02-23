@@ -14,7 +14,7 @@ const FeaturedSection = ({
     }, [])
 
     return (
-        <div className='grid grid-cols-4 gap-12'>
+        <div className='grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-12'>
             {data.map((item) => {
                 return <VerticalCard key={item.id} {...item} />
             })}

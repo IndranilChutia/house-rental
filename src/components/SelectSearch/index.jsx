@@ -1,20 +1,21 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import Select from 'react-select'
+import Select, { components } from 'react-select'
 
 const customStyles = {
     // Example styles for the dropdown container
     control: (provided, state) => ({
         ...provided,
         backgroundColor: 'none',
-        padding: '6px 0',
+        padding: '6px 0.5rem',
         height: '100%',
         width: '100%',
-        border: 'none',
-        borderRadius: '0px',
+        border: '1px solid #e2e8f0',
+        borderRadius: '0.25rem',
+        cursor: 'pointer',
         boxShadow: state.isFocused ? 'none' : 'none',
         '&:hover': {
-            border: 'none',
+            borderColor: 'none',
         },
     }),
 
@@ -27,42 +28,67 @@ const customStyles = {
             backgroundColor: state.isSelected ? '#0056b3' : '#f0f0f0',
             color: state.isSelected ? 'white' : 'black',
         },
+        cursor: 'pointer',
+    }),
+
+    valueContainer: (provided) => ({
+        ...provided,
+        flexWrap: 'nowrap',
     }),
 };
+
+const ControlWithIcon = ({ selectProps, children, ...props }) => (
+    <components.Control {...props}>
+        {selectProps.icon && <div className="w-5">{selectProps.icon}</div>}
+        {children}
+    </components.Control>
+);
+
+
+
 
 const SelectSearch = ({
     id,
     setState,
+    isMulti,
+    defaultVal,
     icon,
     options,
     className = "",
     ...restProps }) => {
 
+
     const handleChange = (selectedOption) => {
         if (!setState) {
-            console.log(selectedOption.value)
+            console.log(selectedOption)
             return;
         }
+
+        if (!isMulti) return setState((prevState) => ({
+            ...prevState,
+            [id]: selectedOption
+        }));
+
         setState((prevState) => ({
             ...prevState,
-            [id]: selectedOption.value
+            [id]: selectedOption.map(item => item)
         }));
     }
 
+
     return (
-        <div className='border rounded border-gray-200 flex gap-2 px-2' >
-            <div className='w-6'>
-                {!!icon && icon}
-            </div>
-            <div className='w-full h-full'>
-                <Select
-                    options={options}
-                    styles={customStyles}
-                    className={`${className}`}
-                    onChange={handleChange}
-                    classNamePrefix="select"
-                    {...restProps} />
-            </div>
+        <div className='w-full h-full'>
+            <Select
+                options={options}
+                isMulti={isMulti}
+                styles={customStyles}
+                defaultValue={defaultVal}
+                icon={icon}
+                components={{ Control: ControlWithIcon }}
+                className={`${className}`}
+                onChange={handleChange}
+                classNamePrefix="select"
+                {...restProps} />
         </div>
     );
 };
@@ -70,9 +96,18 @@ const SelectSearch = ({
 SelectSearch.propTypes = {
     icon: PropTypes.node.isRequired,
     options: PropTypes.array.isRequired,
+    isMulti: PropTypes.bool,
     className: PropTypes.string,
     id: PropTypes.string,
     setState: PropTypes.func,
+    defaultVal: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
+}
+
+SelectSearch.defaultProps = {
+    isMulti: false,
+    className: "",
+    id: "",
+    setState: null
 }
 
 export { SelectSearch };
