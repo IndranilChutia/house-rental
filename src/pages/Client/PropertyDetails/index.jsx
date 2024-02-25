@@ -59,7 +59,7 @@ const PropertyDetails = () => {
                 <h1 className='text-4xl py-[6%] text-white font-bold'>2BHK + Garage</h1>
             </div>
             <div className='container'>
-                <div className='w-full h-full grid lg:grid-cols-2 py-20'>
+                <div className='w-full h-full flex flex-col gap-10 lg:grid lg:grid-cols-2 py-20'>
                     <div className='flex flex-col gap-8'>
                         <div className='flex flex-col gap-2.5'>
                             <p className='text-xs md:text-sm font-medium text-yellow-500 tracking-wider'>Ready To Move In?</p>
