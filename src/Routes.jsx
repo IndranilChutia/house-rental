@@ -6,6 +6,7 @@ import { Button } from '@components';
 import LandingPage from "pages/Client/LandingPage";
 const ClientSettings = React.lazy(() => import("pages/Client/ClientSettings"));
 const Properties = React.lazy(() => import("pages/Client/Properties"));
+const PropertyDetails = React.lazy(() => import("pages/Client/PropertyDetails"));
 
 const AppRoutes = () => {
     return (
@@ -21,7 +22,7 @@ const AppRoutes = () => {
                         </>
                     }
                     />
-                    <Route path="/property/:id" element={<h1>Property Details</h1>} />
+                    <Route path="/property/:id" element={<PropertyDetails />} />
 
                     <Route path="*" element={<h1>Not Found <Link to='/'><Button>Back to Home</Button></Link></h1>} />
                 </Routes>

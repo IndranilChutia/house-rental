@@ -1,4 +1,4 @@
-import { Footer, FullSearch, Navbar, VerticalCard } from '@components';
+import { FilterHorizontal, Footer, FullSearch, Navbar, VerticalCard } from '@components';
 import React, { useEffect, useState } from 'react';
 import headerImg from '@images/Header.png'
 import { useRecoilValue } from 'recoil';
@@ -19,16 +19,16 @@ const Properties = () => {
             <Navbar />
             <div className="w-full h-full flex justify-center relative">
                 <img src={headerImg} alt="header" className='absolute -z-10 h-full w-full' />
-                <h1 className='text-4xl py-[6%] text-white font-bold'>Properties in {searchData.location?.value}</h1>
+                <h1 className='text-4xl py-[6%] text-white font-bold'>Properties in {searchData.location?.label}</h1>
             </div>
             <div className='w-full flex flex-col items-center bg-[var(--primary)]'>
                 <div className="container flex justify-center -mt-8 ">
                     <FullSearch />
                 </div>
-                <div className='py-10 text-white'>
-                    <h1>
-                        Location
-                    </h1>
+                <div className='container'>
+                    <div className='w-full py-8 text-white'>
+                        <FilterHorizontal />
+                    </div>
                 </div>
             </div>
             <div className='container'>
