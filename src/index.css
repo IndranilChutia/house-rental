@@ -24,3 +24,11 @@
 
     --font-heading: "Encode Sans", sans-serif;
 }
+
+::-webkit-scrollbar{
+    width: 6px;
+    background-color: beige;
+}
+::-webkit-scrollbar-thumb{
+    background-color: #0d1025;
+}
