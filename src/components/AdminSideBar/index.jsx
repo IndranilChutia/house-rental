@@ -15,6 +15,10 @@ const options = [
     name: "Listing",
     path: "/admin/listings",
   },
+  {
+    name: "Account Information",
+    path: "/admin/user/info",
+  },
 ];
 
 const Option = (props) => {
@@ -86,10 +90,12 @@ const AdminSideBar = () => {
         }`}
       >
         <button className="p-5 bg-zinc-50 w-full h-fit flex items-center gap-3 rounded-md">
-          <span>
-            <img className="text-zinc-900" src={add} alt="" />
-          </span>
-          <p className="font-extrabold text-xl">Add a property</p>
+          <Link to={"/admin/add-property"} className="flex items-center gap-3">
+            <span>
+              <img className="text-zinc-900" src={add} alt="" />
+            </span>
+            <p className="font-extrabold text-xl">Add a property</p>
+          </Link>
         </button>
         {options.map((item, index) => {
           return <Option key={index} title={item.name} path={item.path} />;

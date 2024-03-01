@@ -9,10 +9,14 @@ import duration from "../../assets/images/Admin/duation.png";
 import maintanance from "../../assets/images/Admin/mntnce.png";
 import language from "../../assets/images/Admin/language.png";
 import security from "../../assets/images/Admin/security.png";
+import { Link } from "react-router-dom";
 
 const XCard = (props) => {
   return (
-    <div className="w-full py-2 h-[300px] flex gap-5">
+    <Link
+      to={`/listing/details/${props.id}`}
+      className="w-full py-2 h-[300px] flex gap-5"
+    >
       <img
         src={props.img}
         alt="property-image"
@@ -117,7 +121,7 @@ const XCard = (props) => {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

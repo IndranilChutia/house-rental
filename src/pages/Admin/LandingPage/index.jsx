@@ -1,5 +1,11 @@
 import React from "react";
-import { AdminNav, AdminSideBar, AlertAdmin, DashCardAdmin } from "@components";
+import {
+  AdminNav,
+  AdminSideBar,
+  AlertAdmin,
+  DashCardAdmin,
+  InputAdmin,
+} from "@components";
 import { TitleAdmin } from "src/components/AdminTitleBar";
 import shop from "../../../assets/images/Admin/shop.png";
 import tenant from "../../../assets/images/Admin/tenant.png";

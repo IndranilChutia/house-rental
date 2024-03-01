@@ -11,6 +11,8 @@ const PropertyDetails = React.lazy(() =>
 );
 const LandingPageAdmin = React.lazy(() => import("pages/Admin/LandingPage"));
 const ListingPage = React.lazy(() => import("pages/Admin/Listings"));
+const Personalinfo = React.lazy(() => import("pages/Admin/PersonalDetail"));
+const AddProperty = React.lazy(() => import("pages/Admin/AddProperty"));
 
 const AppRoutes = () => {
   return (
@@ -48,6 +50,8 @@ const AppRoutes = () => {
           {/* Additional routes go here */}
           <Route path="/admin/dashboard" element={<LandingPageAdmin />}></Route>
           <Route path="/admin/listings" element={<ListingPage />} />
+          <Route path="/admin/user/info" element={<Personalinfo />} />
+          <Route path="/admin/add-property" element={<AddProperty />} />
         </Routes>
       </BrowserRouter>
     </React.Suspense>
