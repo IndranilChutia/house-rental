@@ -18,3 +18,5 @@ export { InputAdmin } from "./InputAdmin/index.jsx";
 export { DropDown } from "./DropDown/index.jsx";
 export { ImagePlainInput } from "./ImageInputSimple/index.jsx";
 export { Checkbox } from "./Checkbox/index.jsx";
+
+export { SASideBar } from "./SuperAdminSideBar/index.jsx";

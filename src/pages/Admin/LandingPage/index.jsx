@@ -27,6 +27,7 @@ const LandingPageAdmin = () => {
               title="Total Properties rented"
               num="20"
             />
+
             <DashCardAdmin
               img={tenant}
               title="Total Properties rented"
