@@ -122,6 +122,28 @@ const PropertyDetails = () => {
                         </div>
                     </div>
                 </div>
+
+                <div className='bg-slate-100 -mx-10 rounded-lg'>
+                    <div className='mx-10 py-8'>
+                        <h1 className='text-xl font-semibold mb-7'>Property Details</h1>
+                        <div className='grid  grid-cols-4 gap-10'>
+                            <div className='flex items-center'><IoBedOutline className='text-lg mr-3' />{amenities.bedrooms} Bedrooms</div>
+                            <div className='flex items-center'><PiBathtub className='text-lg mr-3' />{amenities.bathrooms} Bathrooms</div>
+                            <div className='flex items-center'><PiIntersectSquareDuotone className='text-lg mr-3' />{amenities.area} sq.ft</div>
+                            <div className='flex items-center'><PiArmchair className='text-lg mr-3' />{amenities.furnishing}</div>
+                            <div className='flex items-center'><PiArmchair className='text-lg mr-3' />{amenities.furnishing}</div>
+                            <div className='flex items-center'><PiArmchair className='text-lg mr-3' />{amenities.furnishing}</div>
+                            <div className='flex items-center'><PiArmchair className='text-lg mr-3' />{amenities.furnishing}</div>
+                            <div className='flex items-center'><PiArmchair className='text-lg mr-3' />{amenities.furnishing}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className='grid grid-cols-2 my-16'>
+                    <div>
+                        <h3 className='text-xl font-semibold'>Owner&apos;s Note</h3>
+                    </div>
+                </div>
             </div>
             <Footer />
         </div>
