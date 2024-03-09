@@ -1,0 +1,68 @@
+.titleBar-admin {
+    display: flex;
+    justify-content: space-between;
+    margin: 1vmax 6vmax;
+    align-items: center;
+}
+
+.titleBar-admin-profile {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.admin-img {
+    width: 2vmax;
+    height: 2vmax;
+}
+
+.admin-name {
+    margin: 0;
+    font-size: 1.2vmax;
+    font-weight: 400;
+}
+
+.titleBarAddProductButton {
+    padding: 0.5vmax 3vmax;
+    background-color: #6e82f5;
+    color: white;
+    border-radius: 0.5vmax;
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+}
+.titleBarAddProductButton:hover {
+    background-color: #5c6be0;
+}
+
+.addProductContainer {
+    margin: 2vmax 6vmax 0 6vmax;
+    min-height: 85vh;
+}
+
+.addProductContainer > h1 {
+    margin: 0;
+    font-size: 1.5vmax;
+    font-weight: 700;
+}
+
+.addProductFormContainer {
+    /* height: 80vh; */
+    display: flex;
+    gap: 2vmax;
+    margin-top: 2vmax;
+}
+
+.addProductCont1 {
+    flex: 1;
+}
+.addProductCont2 {
+    flex: 1;
+}
+.addProductCont3 {
+    flex: 1;
+}
+
+.AP-Cont-Row {
+    margin-bottom: 1vmax;
+}

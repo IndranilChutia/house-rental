@@ -11,12 +11,21 @@ import language from "../../assets/images/Admin/language.png";
 import security from "../../assets/images/Admin/security.png";
 import { Link } from "react-router-dom";
 
-const XCard = (props) => {
+const XCardSA = (props) => {
+  const onDelete = () => {
+    //handle onDelete
+  };
+
+  const handleDetail = () => {
+    //open detail
+  };
+
+  const handleMarkComplete = () => {
+    //bring state update function from parent and update listing data's status key as rented
+  };
+
   return (
-    <Link
-      to={`/listing/details/${props.id}`}
-      className="w-full py-2 h-[300px] flex gap-5"
-    >
+    <div className="w-full py-2 h-[300px] flex gap-5">
       <img
         src={props.img}
         alt="property-image"
@@ -111,18 +120,26 @@ const XCard = (props) => {
                   {`Rs. ${props.price}/m`}
                 </span>
               </p>
-              <button className="p-3 rounded-full bg-zinc-100 text-zinc-900 border border-zinc-900">
-                {props.status === "Rented" ? "View Status" : "Edit Listing"}
+              <button
+                className="p-3 rounded-full bg-zinc-100 text-zinc-900 border border-zinc-900"
+                onClick={
+                  props.status === "Rented" ? handleDetail : handleMarkComplete
+                }
+              >
+                {props.status === "Rented" ? "View Status" : "Mark as Complete"}
               </button>
-              <button className="p-3 rounded-full bg-zinc-900 text-zinc-100 border border-zinc-900">
-                {props.status}
+              <button
+                className="p-3 rounded-full bg-zinc-50 text-red-600 border border-red-600"
+                onClick={onDelete}
+              >
+                Delete
               </button>
             </div>
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 
-export { XCard };
+export { XCardSA };

@@ -11,6 +11,12 @@ const PropertyDetails = React.lazy(() =>
 );
 const LandingPageAdmin = React.lazy(() => import("pages/Admin/LandingPage"));
 const ListingPage = React.lazy(() => import("pages/Admin/Listings"));
+const Personalinfo = React.lazy(() => import("pages/Admin/PersonalDetail"));
+const AddProperty = React.lazy(() => import("pages/Admin/AddProperty"));
+const SALanding = React.lazy(() => import("pages/SuperAdmin/Landing"));
+const SAListing = React.lazy(() => import("pages/SuperAdmin/Listings"));
+const SAListingReq = React.lazy(() => import("pages/SuperAdmin/ListingReq"));
+const Log = React.lazy(() => import("pages/SuperAdmin/Log"));
 
 const AppRoutes = () => {
   return (
@@ -48,6 +54,15 @@ const AppRoutes = () => {
           {/* Additional routes go here */}
           <Route path="/admin/dashboard" element={<LandingPageAdmin />}></Route>
           <Route path="/admin/listings" element={<ListingPage />} />
+          <Route path="/admin/user/info" element={<Personalinfo />} />
+          <Route path="/admin/add-property" element={<AddProperty />} />
+          <Route path="/super-admin/dashboard" element={<SALanding />} />
+          <Route path="/super-admin/listings" element={<SAListing />} />
+          <Route
+            path="/super-admin/listing/requests"
+            element={<SAListingReq />}
+          />
+          <Route path="/super-admin/payment" element={<Log />} />
         </Routes>
       </BrowserRouter>
     </React.Suspense>
