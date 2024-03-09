@@ -1,0 +1,19 @@
+.productImgGroup {
+}
+
+.productImgCross {
+    visibility: hidden;
+}
+
+.productImgBackdrop {
+    visibility: hidden;
+}
+
+.productImgGroup:hover .productImgCross {
+    visibility: visible;
+    z-index: 2;
+}
+
+.productImgGroup:hover .productImgBackdrop {
+    visibility: visible;
+}

@@ -13,6 +13,7 @@
     "@clerk/clerk-react": "^4.30.5",
     "@tanstack/react-query": "^5.24.1",
     "@types/react-query": "^1.2.9",
+    "axios": "^1.6.7",
     "chroma-js": "^2.4.2",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
