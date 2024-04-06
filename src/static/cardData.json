@@ -1,11 +1,13 @@
-[
+ [
     {
         "id": 1,
         "thumbnail": "https://images.unsplash.com/photo-1566601146613-82f9dbd68995?q=80&w=2835&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         "name": "2 BHK Apartment",
         "location": "XYZ Housing Society, Gurugram",
         "rent": 26000,
+        "type":"Shared Room",
         "area": 1200,
+        "lat-long":"30.755611, 76.618852",
         "furnishing": "Semi Furnished",
         "movein": "Ready to Move",
         "bedroom": 2,
@@ -15,6 +17,10 @@
         "maintenance": "Included",
         "security": "50% Rent",
         "occupancy": 5,
+        "status":"Rented",
+        "Language":"English,Hindi",
+        "ammenities":["Nearby Park"],
+        "description":"",
         "images": [
             "https://images.unsplash.com/photo-1566601146613-82f9dbd68995?q=80&w=2835&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             "https://images.unsplash.com/photo-1595099869270-c50b40dfd6da?q=80&w=2942&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -38,7 +44,11 @@
         "lease": 11,
         "maintenance": "Included",
         "security": "50% Rent",
+        "status":"Active",
+        "Language":"English,Hindi",
         "occupancy": 5,
+        "description":"",
+        "ammenities":[],
         "images": [
             "https://images.unsplash.com/photo-1566601146613-82f9dbd68995?q=80&w=2835&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             "https://images.unsplash.com/photo-1595099869270-c50b40dfd6da?q=80&w=2942&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -62,7 +72,11 @@
         "lease": 11,
         "maintenance": "Included",
         "security": "50% Rent",
+        "status":"Active",
+        "Language":"English,Hindi",
         "occupancy": 5,
+        "ammenities":[],
+        "description":"",
         "images": [
             "https://images.unsplash.com/photo-1566601146613-82f9dbd68995?q=80&w=2835&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             "https://images.unsplash.com/photo-1595099869270-c50b40dfd6da?q=80&w=2942&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -86,7 +100,11 @@
         "lease": 11,
         "maintenance": "Included",
         "security": "50% Rent",
+        "status":"Active",
+        "Language":"English,Hindi",
         "occupancy": 5,
+        "ammenities":[],
+        "description":"",
         "images": [
             "https://images.unsplash.com/photo-1566601146613-82f9dbd68995?q=80&w=2835&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             "https://images.unsplash.com/photo-1595099869270-c50b40dfd6da?q=80&w=2942&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
