@@ -4,8 +4,11 @@ import { RedirectToSignIn, SignedIn, SignedOut } from "@clerk/clerk-react";
 import { Button } from "@components";
 
 import LandingPage from "pages/Client/LandingPage";
+
 const ClientSettings = React.lazy(() => import("pages/Client/ClientSettings"));
 const Properties = React.lazy(() => import("pages/Client/Properties"));
+const WishListed = React.lazy(() => import("pages/Client/Wishlisted"));
+
 const PropertyDetails = React.lazy(() =>
   import("pages/Client/PropertyDetails")
 );
@@ -25,6 +28,7 @@ const AppRoutes = () => {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/properties" element={<Properties />} />
+          <Route path="/wishlisted" element={<WishListed />} />
           <Route
             path="/settings"
             element={
