@@ -20,16 +20,3 @@ export { ImagePlainInput } from "./ImageInputSimple/index.jsx";
 export { Checkbox } from "./Checkbox/index.jsx";
 
 export { SASideBar } from "./SuperAdminSideBar/index.jsx";
-
-export { VerticalCard } from "./VerticalCard/index";
-export { FeaturedSection } from "./FeaturedSection/index";
-export { Footer } from "./Footer/index";
-export { FilterHorizontal } from "./FilterHorizontal/index";
-export { CustomNextArrow, CustomPrevArrow } from "./CustomCarouselArrows/index";
-export { AdminNav } from "./AdminNavbar/index";
-export { TitleAdmin } from "./AdminTitleBar/index";
-export { SearchBar } from "./SearchBar/index";
-export { AlertAdmin } from "./AdminProfileAlert/index.jsx";
-export { DashCardAdmin } from "./AdminDashCard/index.jsx";
-export { AdminSideBar } from "./AdminSideBar/index.jsx";
-export { XCard } from "./HorizontalCard/index.jsx";
