@@ -4,6 +4,9 @@ import { RedirectToSignIn, SignedIn, SignedOut } from "@clerk/clerk-react";
 import { Button } from "@components";
 
 import LandingPage from "pages/Client/LandingPage";
+import AdminLogin from "pages/Admin/AdminLogin/AdminLogin";
+import { Toaster } from "react-hot-toast";
+import AdminProtected from "./utils/AdminProtected";
 
 const ClientSettings = React.lazy(() => import("pages/Client/ClientSettings"));
 const Properties = React.lazy(() => import("pages/Client/Properties"));
@@ -25,6 +28,7 @@ const AppRoutes = () => {
   return (
     <React.Suspense fallback={<div>Loading...</div>}>
       <BrowserRouter>
+        <Toaster position="top-center" />
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/properties" element={<Properties />} />
@@ -55,11 +59,13 @@ const AppRoutes = () => {
               </h1>
             }
           />
+
+          <Route path="/admin/login" element={<AdminLogin />} />
           {/* Additional routes go here */}
-          <Route path="/admin/dashboard" element={<LandingPageAdmin />}></Route>
-          <Route path="/admin/listings" element={<ListingPage />} />
+          <Route path="/admin/dashboard" element={<AdminProtected><LandingPageAdmin /></AdminProtected>}></Route>
+          <Route path="/admin/listings" element={<AdminProtected><ListingPage /></AdminProtected>} />
           <Route path="/admin/user/info" element={<Personalinfo />} />
-          <Route path="/admin/add-property" element={<AddProperty />} />
+          <Route path="/admin/add-property" element={<AdminProtected><AddProperty /></AdminProtected>} />
           <Route path="/super-admin/dashboard" element={<SALanding />} />
           <Route path="/super-admin/listings" element={<SAListing />} />
           <Route

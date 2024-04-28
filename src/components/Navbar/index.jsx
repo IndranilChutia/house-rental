@@ -5,6 +5,9 @@ import { Button } from '@components';
 
 import { SignedOut, SignedIn, SignUpButton, SignInButton, UserButton } from "@clerk/clerk-react"
 
+import RentDetails from 'pages/Client/RentDetails';
+import { RiHomeHeartFill } from 'react-icons/ri';
+
 const Navbar = () => {
 
 
@@ -55,11 +58,15 @@ const Navbar = () => {
                     </SignedOut>
                     <SignedIn>
 
-                        <Link to={'/settings'}>
-                            <Button size='sm' >Settings</Button>
-                        </Link>
-
-                        <UserButton />
+                        <UserButton afterSignOutUrl='/'>
+                            <UserButton.UserProfilePage
+                                label='Rent Details'
+                                labelIcon={<RiHomeHeartFill size={16} />}
+                                url="rent-details"
+                            >
+                                <RentDetails />
+                            </UserButton.UserProfilePage>
+                        </UserButton>
                     </SignedIn>
                 </div>
             </div>

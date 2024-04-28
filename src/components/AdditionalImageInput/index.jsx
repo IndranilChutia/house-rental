@@ -29,7 +29,7 @@ const AdditionalImageInput = ({
           />
         );
       })}
-      {productImages?.length < 10 && (
+      {productImages?.length < 5 && (
         <ProductImageUploadBox onImageChange={onImageChange} />
       )}
     </div>

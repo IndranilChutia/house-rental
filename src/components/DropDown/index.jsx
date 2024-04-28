@@ -22,8 +22,8 @@ const DropDown = (props) => {
       >
         {props.data.map((item, index) => {
           return (
-            <option key={item} value={item}>
-              {item}
+            <option key={item.value} value={item.value}>
+              {item.label}
             </option>
           );
         })}

@@ -71,7 +71,7 @@ const OptionGroup = (props) => {
 };
 
 const AdminSideBar = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   return (
     <div className="w-full border-[.5px] border-zinc-800 bg-zinc-800 p-2 flex md:w-1/5 md:h-full flex-col items-center p-10">
@@ -85,9 +85,8 @@ const AdminSideBar = () => {
 
       {/* Sidebar content */}
       <div
-        className={`my-3 w-full flex flex-col ${
-          isSidebarOpen ? "" : "hidden md:flex"
-        }`}
+        className={`my-3 w-full flex flex-col ${isSidebarOpen ? "" : "hidden md:flex"
+          }`}
       >
         <button className="p-5 bg-zinc-50 w-full h-fit flex items-center gap-3 rounded-md">
           <Link to={"/admin/add-property"} className="flex items-center gap-3">
