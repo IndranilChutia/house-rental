@@ -10,6 +10,7 @@ import maintanance from "../../assets/images/Admin/mntnce.png";
 import language from "../../assets/images/Admin/language.png";
 import security from "../../assets/images/Admin/security.png";
 import { Link } from "react-router-dom";
+import { generateImgLink } from '../../utils/generateImgLink';
 
 const XCard = (props) => {
   return (
@@ -18,8 +19,8 @@ const XCard = (props) => {
       className="w-full py-2 h-[300px] flex gap-5"
     >
       <img
-        src={props.img}
-        alt="property-image"
+        src={generateImgLink(props.thumbnail?.path)}
+        alt="property"
         className="h-full object-cover w-[350px] rounded-lg shadow-md"
       />
       <div className="w-full h-full">

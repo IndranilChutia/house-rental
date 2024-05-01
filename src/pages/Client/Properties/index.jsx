@@ -4,15 +4,24 @@ import headerImg from '@images/Header.png'
 import { useRecoilValue } from 'recoil';
 import { searchState } from 'src/store/atoms/searchState';
 import searchDemo from '../../../static/searchDemo.json'
+import useSWR from 'swr';
+
+const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 const Properties = () => {
     const searchData = useRecoilValue(searchState);
 
-    const [properties, setProperties] = useState([])
+    const { data: cardData, error, isLoading } = useSWR(`${import.meta.env.VITE_HOST}/api/rental-app/propertyInfos`, fetcher)
 
-    useEffect(() => {
-        setProperties(searchDemo)
-    }, [])
+    console.log(cardData?.data)
+
+    if(isLoading){
+        return <div>Loading....</div>
+      }
+    
+      if(error){
+        return <div>{error}</div>
+      }
 
     return (
         <div className='w-full flex flex-col items-center'>
@@ -34,7 +43,7 @@ const Properties = () => {
             <div className='container'>
                 <h2 className='text-xl mt-10 font-semibold'>Checkout Properties based on your location</h2>
                 <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-10 gap-y-14 my-10'>
-                    {properties.map(item => {
+                    {cardData?.data?.map(item => {
                         return <VerticalCard key={item.id} {...item} />
                     })}
                 </div>

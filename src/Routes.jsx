@@ -62,6 +62,7 @@ const AppRoutes = () => {
 
           <Route path="/admin/login" element={<AdminLogin />} />
           {/* Additional routes go here */}
+          {/* <Route exact path="/admin"><Redirect to="dashboard" /></Route> */}
           <Route path="/admin/dashboard" element={<AdminProtected><LandingPageAdmin /></AdminProtected>}></Route>
           <Route path="/admin/listings" element={<AdminProtected><ListingPage /></AdminProtected>} />
           <Route path="/admin/user/info" element={<Personalinfo />} />

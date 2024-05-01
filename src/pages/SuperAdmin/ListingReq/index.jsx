@@ -2,11 +2,26 @@ import { SASideBar } from "@components";
 import React, { useEffect, useState } from "react";
 import { ReqCardSA } from "src/components/ReqCardSA";
 import cardData from "../../../static/cardData.json";
-const index = () => {
-  const [properties, setProperties] = useState([]);
-  useEffect(() => {
-    setProperties(cardData);
-  }, []);
+import useSWR from 'swr';
+
+const fetcher = (...args) => fetch(...args).then(res => res.json())
+
+const superAdminListing = () => {
+  const { data: cardData, error, isLoading } = useSWR(`${import.meta.env.VITE_HOST}/api/rental-app/adminPropertyInfo?adminId=91bbd497-01d1-4d46-bd60-ed054a66edbd`, fetcher)
+
+  const reqProperty = cardData?.data.filter(i=>{
+    return i.isApproved === false
+  })
+
+  console.log(cardData?.data)
+
+  if(isLoading){
+    return <div>Loading....</div>
+  }
+
+  if(error){
+    return <div>{error}</div>
+  }
 
   return (
     <div className="w-full h-[100vh] flex md:overflow-hidden">
@@ -35,10 +50,12 @@ const index = () => {
           </div>
         </div>
         <div className="w-full h-[600px] my-2 flex flex-col gap-4 overflow-y-scroll px-2">
-          {properties.map((item, index) => {
+          {reqProperty.map((item) => {
+            console.log("=====",item);
             return (
               <ReqCardSA
                 key={item.id}
+                id={item.id}
                 name={item.name}
                 bed={item.bedroom}
                 bath={item.bathroom}
@@ -62,4 +79,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default superAdminListing;

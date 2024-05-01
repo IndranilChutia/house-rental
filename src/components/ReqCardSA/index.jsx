@@ -10,21 +10,34 @@ import maintanance from "../../assets/images/Admin/mntnce.png";
 import language from "../../assets/images/Admin/language.png";
 import security from "../../assets/images/Admin/security.png";
 import { Link } from "react-router-dom";
+import { generateImgLink } from '../../utils/generateImgLink';
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const ReqCardSA = (props) => {
   const onDelete = () => {
     //handle onDelete
   };
 
-  const handleMarkComplete = () => {
-    //bring state update function from parent and update listing data's status key as rented
+  console.log(props.id)
+  const handlePropertyApprove = async () => {
+    try {
+      const res = await axios.put(`${import.meta.env.VITE_HOST}/api/rental-app/approveProperty?id=${props.id}`)
+
+      toast.success("Property Approved");
+      window.location.reload()
+
+    } catch (error) {
+      console.log(error)
+      toast.error(error.response.data.error);
+    }
   };
 
   return (
     <div className="w-full py-2 h-[300px] flex gap-5">
       <img
-        src={props.img}
-        alt="property-image"
+        src={generateImgLink(props.img?.path)}
+        alt="property"
         className="h-full object-cover w-[350px] rounded-lg shadow-md"
       />
       <div className="w-full h-full">
@@ -118,7 +131,7 @@ const ReqCardSA = (props) => {
               </p>
               <button
                 className="py-3 px-5 rounded-full bg-zinc-100 text-zinc-900 border border-zinc-900"
-                onClick={handleMarkComplete}
+                onClick={handlePropertyApprove}
               >
                 Approve
               </button>

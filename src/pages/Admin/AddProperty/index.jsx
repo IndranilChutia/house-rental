@@ -13,23 +13,23 @@ import { AdditionalImageInput } from "src/components/AdditionalImageInput";
 import axios from "axios";
 import useSWR from "swr";
 import { jwtDecode } from "jwt-decode";
+import { useRecoilValue } from "recoil";
+import { partnerState } from "src/store/atoms/partnerState";
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 const AddProperty = () => {
   // * Network Calls
   const { data: amenitiesData, error, isLoading } = useSWR(`${import.meta.env.VITE_HOST}/api/rental-app/lists`, fetcher)
 
-  const token = localStorage.getItem("partnerToken");
+  const partnerData = useRecoilValue(partnerState)
   useEffect(()=>{
-    const decodedToken = jwtDecode(token);
-    const admintokenId = decodedToken.user.id;
     setPostData((prevData=>{
       return {
         ...prevData,
-        adminId: admintokenId
+        adminId: partnerData.partnerId
       }
     }))
-  },[token])
+  },[partnerData])
 
   // STATE VARIABLES
   const [page, setPage] = useState(1);
@@ -59,8 +59,8 @@ const AddProperty = () => {
     Language: "",
     amenities: [],
     gst: false,
-    gstIn: "",
-    sac: "",
+    gstIn: null,
+    sac: 0,
     propertyDesc: "",
     mapLink: "",
     totalFloor: 0,
@@ -107,10 +107,14 @@ const AddProperty = () => {
   };
 
   const handleAdditionalImgChange = (data) => {
-    setProductImages([...productImages, data]);
+    // eslint-disable-next-line no-debugger
+    let images = [...productImages]
+    images.push(data)
+    setProductImages([...images]);
+    console.log("Additional Img: ", images)
     setPostData((prevData) => ({
       ...prevData,
-      img: [...productImages, data],
+      img: images,
     }));
   };
 
@@ -119,7 +123,7 @@ const AddProperty = () => {
 
     setPostData((prevData) => ({
       ...prevData,
-      images: [...data],
+      img: [...data],
     }));
   };
 
@@ -137,7 +141,11 @@ const AddProperty = () => {
       e.preventDefault();
       const formData = buildFormData(postData);
       console.log(postData)
-      const res = await axios.post(`${import.meta.env.VITE_HOST}/api/rental-app/propertyInfo`, formData);
+      const res = await axios.post(`${import.meta.env.VITE_HOST}/api/rental-app/propertyInfo`, formData,{
+        headers:{
+          partnerToken: partnerData.partnerToken
+        }
+      });
       if (res.status === 200) {
         alert("Added");
       }
@@ -155,7 +163,7 @@ const AddProperty = () => {
   };
 
   const appendData = (formData, key, value) => {
-    const isExcluded = key === "thumbnail" || key === "images";
+    const isExcluded = key === "thumbnail" || key === "img" || key ==="amenities";
     if (isExcluded) {
       handleExcludedData(formData, key, value);
     } else {
@@ -164,12 +172,19 @@ const AddProperty = () => {
   };
 
   const handleExcludedData = (formData, key, value) => {
-    if (Array.isArray(value)) {
-      formData.append(`${key}`, value.length === 1 ? value[0] : value);
+    if (Array.isArray(value) && value.length === 1) {
+      formData.append(`${key}`, value[0]);
+    } else if(Array.isArray(value) && value.length > 1){
+      value.map((x)=>{
+        formData.append(`${key}`, x)
+      })
     }
   };
 
   const handleStandardData = (formData, key, value) => {
+    console.log("-----------------------");
+    console.log(key, value);
+    console.log("-----------------------");
     formData.append(
       key,
       Array.isArray(value)

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   AdminNav,
   AdminSideBar,
@@ -11,8 +11,24 @@ import shop from "../../../assets/images/Admin/shop.png";
 import tenant from "../../../assets/images/Admin/tenant.png";
 import listing from "../../../assets/images/Admin/listing.png";
 import rent from "../../../assets/images/Admin/monthlyrent.png";
-
+import { jwtDecode } from "jwt-decode";
+import { useSetRecoilState } from "recoil";
+import { partnerState } from '../../../store/atoms/partnerState';
 const LandingPageAdmin = () => {
+  const setPartnerData= useSetRecoilState(partnerState)
+
+
+  const token = localStorage.getItem("partnerToken");
+  useEffect(()=>{
+    const decodedToken = jwtDecode(token);
+    const admintokenId = decodedToken.user.id;
+    console.log(decodedToken)
+    setPartnerData({
+        partnerToken: token,
+        partnerId: admintokenId
+      })
+  },[])
+
   return (
     <div className="w-full h-[100vh] md:overflow-hidden">
       <AdminNav />

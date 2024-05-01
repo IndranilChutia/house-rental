@@ -1,3 +1,5 @@
+import React, { useEffect, useState } from "react";
+import useSWR from 'swr';
 import {
   AdminNav,
   AdminSideBar,
@@ -5,13 +7,25 @@ import {
   TitleAdmin,
   XCard,
 } from "@components";
-import React, { useEffect, useState } from "react";
-import cardData from "../../../static/cardData.json";
+import { useRecoilValue } from "recoil";
+import { partnerState } from "src/store/atoms/partnerState";
+
+const fetcher = (...args) => fetch(...args).then(res => res.json())
 const ListingPage = () => {
-  const [properties, setProperties] = useState([]);
-  useEffect(() => {
-    setProperties(cardData);
-  }, []);
+  const partnerData = useRecoilValue(partnerState)
+
+  console.log(partnerData)
+  const { data: cardData, error, isLoading } = useSWR(`${import.meta.env.VITE_HOST}/api/rental-app/adminPropertyInfo?adminId=${partnerData?.partnerId}`, fetcher)
+
+  console.log(cardData?.data)
+
+  if(isLoading){
+    return <div>Loading....</div>
+  }
+
+  if(error){
+    return <div>{error}</div>
+  }
 
   return (
     <div className="w-full h-[100vh] md:overflow-hidden">
@@ -22,14 +36,14 @@ const ListingPage = () => {
           <TitleAdmin Title="Listings" />
           <AlertAdmin />
           <div className="w-full h-[700px] py-2 flex flex-col gap-4 overflow-y-auto ">
-            {properties.map((item, index) => {
+            {cardData.data.map((item, index) => {
               return (
                 <XCard
                   key={item.id}
                   name={item.name}
                   bed={item.bedroom}
                   bath={item.bathroom}
-                  img={item.thumbnail}
+                  thumbnail={item.thumbnail}
                   date={"12 May 2023"}
                   moveIn={item.movein}
                   occupancy={item.occupancy}

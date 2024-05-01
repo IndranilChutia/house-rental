@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import { jwtDecode } from "jwt-decode";
+import { useSetRecoilState } from "recoil";
+import { partnerState } from "src/store/atoms/partnerState";
 
 const AdminLogin = () => {
     const navigate = useNavigate();
@@ -10,13 +13,23 @@ const AdminLogin = () => {
         email: "",
         password: "",
     });
+    const setPartnerData = useSetRecoilState(partnerState)
 
     const formSubmit = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post(`${import.meta.env.VITE_HOST}/api/rental-app/partnerLogin`, formData)
 
-            localStorage.setItem("partnerToken", response.data.data)
+            const token = response.data.data;
+
+            localStorage.setItem("partnerToken", token)
+            const decodedToken = jwtDecode(token);
+            const admintokenId = decodedToken.user.id;
+            console.log(decodedToken)
+            setPartnerData({
+                partnerToken: token,
+                partnerId: admintokenId
+            })
             toast.success("Login Successful");
             navigate("/admin/dashboard");
         } catch (error) {
