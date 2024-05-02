@@ -10,6 +10,7 @@ import maintanance from "../../assets/images/Admin/mntnce.png";
 import language from "../../assets/images/Admin/language.png";
 import security from "../../assets/images/Admin/security.png";
 import { Link } from "react-router-dom";
+import { generateImgLink } from '../../utils/generateImgLink';
 
 const XCardSA = (props) => {
   const onDelete = () => {
@@ -23,12 +24,11 @@ const XCardSA = (props) => {
   const handleMarkComplete = () => {
     //bring state update function from parent and update listing data's status key as rented
   };
-
   return (
     <div className="w-full py-2 h-[300px] flex gap-5">
       <img
-        src={props.img}
-        alt="property-image"
+        src={generateImgLink(props.img.path)}
+        alt="property"
         className="h-full object-cover w-[350px] rounded-lg shadow-md"
       />
       <div className="w-full h-full">
@@ -114,10 +114,10 @@ const XCardSA = (props) => {
               </p>
             </div>
             <div className="w-1/4 h-full flex flex-col py-3 gap-3 items-end">
-              <p className="text-lg text-zinc-400 font-bold">
+              <p className="text-sm text-zinc-400 font-bold">
                 from{" "}
-                <span className="text-xl text-zinc-500 font-black">
-                  {`Rs. ${props.price}/m`}
+                <span className="text-lg text-zinc-500 font-black">
+                  {`Rs.${props.price}/m`}
                 </span>
               </p>
               <button

@@ -7,19 +7,19 @@ import useSWR from 'swr';
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 const superAdminListing = () => {
-  const { data: cardData, error, isLoading } = useSWR(`${import.meta.env.VITE_HOST}/api/rental-app/adminPropertyInfo?adminId=91bbd497-01d1-4d46-bd60-ed054a66edbd`, fetcher)
+  const { data: cardData, error, isLoading } = useSWR(`${import.meta.env.VITE_HOST}/api/rental-app/propertyInfos`, fetcher)
 
-  const reqProperty = cardData?.data.filter(i=>{
+  const reqProperty = cardData?.data.filter(i => {
     return i.isApproved === false
   })
 
   console.log(cardData?.data)
 
-  if(isLoading){
+  if (isLoading) {
     return <div>Loading....</div>
   }
 
-  if(error){
+  if (error) {
     return <div>{error}</div>
   }
 
@@ -51,7 +51,7 @@ const superAdminListing = () => {
         </div>
         <div className="w-full h-[600px] my-2 flex flex-col gap-4 overflow-y-scroll px-2">
           {reqProperty.map((item) => {
-            console.log("=====",item);
+            console.log("=====", item);
             return (
               <ReqCardSA
                 key={item.id}
@@ -60,10 +60,10 @@ const superAdminListing = () => {
                 bed={item.bedroom}
                 bath={item.bathroom}
                 img={item.thumbnail}
-                date={"12 May 2023"}
+                date={new Date(item.createdAt).toLocaleDateString("en-GB", { day: "numeric", month: "long" })}
                 moveIn={item.movein}
-                occupancy={item.occupancy}
-                leaseFor={item.lease}
+                occupancy={item.maxOccupancy}
+                leaseFor={item.leaseDuration}
                 maintanance={item.maintenance}
                 language={item.Language}
                 security={item.security}

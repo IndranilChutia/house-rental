@@ -15,7 +15,7 @@ import { generateImgLink } from '../../utils/generateImgLink';
 const XCard = (props) => {
   return (
     <Link
-      to={`/listing/details/${props.id}`}
+      to={`/property/${props.id}`}
       className="w-full py-2 h-[300px] flex gap-5"
     >
       <img
@@ -106,10 +106,10 @@ const XCard = (props) => {
               </p>
             </div>
             <div className="w-1/4 h-full flex flex-col py-3 gap-3 items-end">
-              <p className="text-lg text-zinc-400 font-bold">
+              <p className="text-sm text-zinc-400 font-bold">
                 from{" "}
-                <span className="text-xl text-zinc-500 font-black">
-                  {`Rs. ${props.price}/m`}
+                <span className="text-lg text-zinc-500 font-black">
+                  {`Rs.${props.price}/m`}
                 </span>
               </p>
               <button className="p-3 rounded-full bg-zinc-100 text-zinc-900 border border-zinc-900">

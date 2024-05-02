@@ -30,7 +30,7 @@ const ThumbnailInput = (props) => {
       setError("Only image files allowed!");
       return false;
     }
-    if (file.size > 1024 * 1024) {
+    if (file.size > 10240 * 1024) {
       setError("File size exceeded! Max 1MB allowed.");
       return false;
     }

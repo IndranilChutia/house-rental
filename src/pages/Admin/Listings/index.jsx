@@ -16,26 +16,26 @@ const ListingPage = () => {
   const [partnerData, setPartnerData] = useRecoilState(partnerState)
 
   const token = localStorage.getItem("partnerToken");
-  useEffect(()=>{
+  useEffect(() => {
     const decodedToken = jwtDecode(token);
     const admintokenId = decodedToken.user.id;
     console.log(decodedToken)
     setPartnerData({
-        partnerToken: token,
-        partnerId: admintokenId
-      })
-  },[token])
+      partnerToken: token,
+      partnerId: admintokenId
+    })
+  }, [token])
 
   console.log(partnerData)
   const { data: cardData, error, isLoading } = useSWR(`${import.meta.env.VITE_HOST}/api/rental-app/adminPropertyInfo?adminId=${partnerData?.partnerId}`, fetcher)
 
   console.log(cardData?.data)
 
-  if(isLoading){
+  if (isLoading) {
     return <div>Loading....</div>
   }
 
-  if(error){
+  if (error) {
     return <div>{error}</div>
   }
 
@@ -48,18 +48,19 @@ const ListingPage = () => {
           <TitleAdmin Title="Listings" />
           <AlertAdmin />
           <div className="w-full h-[700px] py-2 flex flex-col gap-4 overflow-y-auto ">
-            {cardData.data.map((item, index) => {
+            {cardData.data.map((item) => {
               return (
                 <XCard
                   key={item.id}
+                  id={item.id}
                   name={item.name}
                   bed={item.bedroom}
                   bath={item.bathroom}
                   thumbnail={item.thumbnail}
-                  date={"12 May 2023"}
+                  date={new Date(item.createdAt).toLocaleDateString("en-GB", { day: "numeric", month: "long" })}
                   moveIn={item.movein}
-                  occupancy={item.occupancy}
-                  leaseFor={item.lease}
+                  occupancy={item.maxOccupancy}
+                  leaseFor={item.leaseDuration}
                   maintanance={item.maintenance}
                   language={item.Language}
                   security={item.security}

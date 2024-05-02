@@ -123,10 +123,10 @@ const ReqCardSA = (props) => {
               </p>
             </div>
             <div className="w-1/4 h-full flex flex-col py-3 gap-3 items-end">
-              <p className="text-lg text-zinc-400 font-bold">
+              <p className="text-sm text-zinc-400 font-bold">
                 from{" "}
                 <span className="text-xl text-zinc-500 font-black">
-                  {`Rs. ${props.price}/m`}
+                  {`Rs.${props.price}/m`}
                 </span>
               </p>
               <button

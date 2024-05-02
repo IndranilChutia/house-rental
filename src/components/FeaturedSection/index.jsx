@@ -10,21 +10,21 @@ const FeaturedSection = ({
     location
 }) => {
 
-    const { data: cardData, error, isLoading } = useSWR(`${import.meta.env.VITE_HOST}/api/rental-app/propertyInfos`, fetcher)
+    const { data: cardData, error, isLoading } = useSWR(`${import.meta.env.VITE_HOST}/api/rental-app/appPropertyInfo`, fetcher)
 
     console.log(cardData?.data)
 
-    if(isLoading){
+    if (isLoading) {
         return <div>Loading....</div>
-      }
-    
-      if(error){
+    }
+
+    if (error) {
         return <div>{error}</div>
-      }
+    }
 
     return (
         <div className='grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-12'>
-            {cardData?.data?.slice(0,4).map((item) => {
+            {cardData?.data?.slice(0, 4).map((item) => {
                 return <VerticalCard key={item.id} {...item} />
             })}
 
