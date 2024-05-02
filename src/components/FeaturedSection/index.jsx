@@ -24,7 +24,7 @@ const FeaturedSection = ({
 
     return (
         <div className='grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-12'>
-            {cardData?.data?.map((item) => {
+            {cardData?.data?.slice(0,4).map((item) => {
                 return <VerticalCard key={item.id} {...item} />
             })}
 

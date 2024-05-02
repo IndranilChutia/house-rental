@@ -1,46 +1,66 @@
+import Slider from "react-slick/lib/slider";
+import { useParams } from "react-router-dom";
+import _ from 'lodash'
 import {
-  Button,
   CustomNextArrow,
   CustomPrevArrow,
   Footer,
   Navbar,
 } from "@components";
-import { useEffect, useRef, useState } from "react";
+import noImg from '../../../assets/images/noImg.png'
+import { useEffect, useMemo, useRef, useState } from "react";
+import { generateImgLink } from '../../../utils/generateImgLink';
+import useSWR from 'swr';
+
+// Images
 import headerImg from "@images/Header.png";
 
-import data from "../../../static/cardData.json";
-console.log(data);
 
-import { IoBedOutline } from "react-icons/io5";
+
+// Icons
+import { IoAlarmOutline, IoBedOutline, IoBusinessOutline, IoCarOutline, IoCashOutline, IoKeyOutline } from "react-icons/io5";
 import {
-  PiCarLight,
   PiBathtub,
   PiIntersectSquareDuotone,
   PiArmchair,
+  PiStairs,
 } from "react-icons/pi";
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 
 const ownerImg =
   "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=2960&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
-import searchDemo from "../../../static/searchDemo.json";
-import Slider from "react-slick/lib/slider";
 
+
+const fetcher = (...args) => fetch(...args).then(res => res.json())
 const PropertyDetails = () => {
-  const [properties, setProperties] = useState([]);
-  const [CardData, setData] = useState();
 
-  useEffect(() => {
-    setProperties(searchDemo);
-    setData(data);
-  }, []);
+  let { propertyId } = useParams()
+  // console.log(propertyId)
 
-  const amenities = {
-    bedrooms: 3,
-    bathrooms: 2,
-    area: 1200,
-    furnishing: "Fully Furnished",
-    rent: 15000,
-  };
+  const { data, error, isLoading } = useSWR(`${import.meta.env.VITE_HOST}/api/rental-app/propertyInfo?id=${propertyId}`, fetcher)
+  const propertyDetail = useMemo(() => data?.data || [], [data]);
+
+  console.log(propertyDetail)
+
+  const propertyImages = propertyDetail?.img?.map((item, index) => ({
+    id: index + 1,
+    src: generateImgLink(item.path)
+  })) || [];
+
+  propertyImages.unshift({
+    id: 0,
+    src: generateImgLink(propertyDetail?.thumbnail?.path)
+  })
+
+  // If propertyImages has less than 4 items, repeat the elements to have at least 4 elements
+  while (propertyImages.length < 4) {
+    propertyImages.push({
+      id: Math.random(),
+      src: noImg
+    })
+  }
+
 
   const [nav1, setNav1] = useState(null);
   const [nav2, setNav2] = useState(null);
@@ -60,7 +80,16 @@ const PropertyDetails = () => {
   useEffect(() => {
     setNav1(sliderRef1);
     setNav2(sliderRef2);
-  }, []);
+  }, [propertyDetail]);
+
+
+  if (isLoading) {
+    return <div>Loading....</div>
+  }
+
+  if (error) {
+    return <div>{error}</div>
+  }
 
   return (
     <div className="w-full flex flex-col items-center">
@@ -71,7 +100,7 @@ const PropertyDetails = () => {
           alt="header"
           className="absolute -z-10 h-full w-full"
         />
-        <h1 className="text-4xl py-[6%] text-white font-bold">2BHK + Garage</h1>
+        <h1 className="text-4xl py-[6%] text-white font-bold">{propertyDetail.name}</h1>
       </div>
       <div className="container">
         <div className="w-full h-full flex flex-col gap-10 lg:grid lg:grid-cols-2 py-20">
@@ -94,19 +123,27 @@ const PropertyDetails = () => {
               <div className="w-full h-full grid grid-cols-2 gap-4 text-sm mt-6">
                 <div className="flex items-center">
                   <IoBedOutline className="text-lg mr-3" />
-                  {amenities.bedrooms} Bedrooms
+                  {propertyDetail.bedroom} Bedrooms
                 </div>
                 <div className="flex items-center">
                   <PiBathtub className="text-lg mr-3" />
-                  {amenities.bathrooms} Bathrooms
+                  {propertyDetail.bathroom} Bathrooms
                 </div>
                 <div className="flex items-center">
                   <PiIntersectSquareDuotone className="text-lg mr-3" />
-                  {amenities.area} sq.ft
+                  {propertyDetail.carpetArea} sq.ft
                 </div>
                 <div className="flex items-center">
                   <PiArmchair className="text-lg mr-3" />
-                  {amenities.furnishing}
+                  {_.capitalize(propertyDetail.furnishDetails)}
+                </div>
+                <div className="flex items-center">
+                  <IoBusinessOutline className="text-lg mr-3" />
+                  {_.capitalize(propertyDetail.propType)}
+                </div>
+                <div className="flex items-center">
+                  <IoKeyOutline className="text-lg mr-3" />
+                  Move-In {propertyDetail.movein ? "Available" : "Not Available"}
                 </div>
               </div>
             </div>
@@ -129,7 +166,7 @@ const PropertyDetails = () => {
                 <p>Rent</p>
                 <div>
                   <span className="text-3xl font-openSans text-slate-800 font-bold">
-                    ₹{amenities.rent}
+                    ₹{propertyDetail.rent}
                   </span>
                   <span> &nbsp;/ month</span>
                 </div>
@@ -143,12 +180,12 @@ const PropertyDetails = () => {
                 ref={(slider) => (sliderRef1 = slider)}
                 {...settings}
               >
-                {data[0]?.images.map((image, index) => (
-                  <div key={index} className="h-96 rounded-md overflow-hidden">
+                {propertyImages.map((image) => (
+                  <div key={image.id} className="h-96 rounded-md overflow-hidden">
                     <img
                       className="w-full h-full object-cover"
-                      src={image}
-                      alt="image"
+                      src={image.src}
+                      alt="additional-img"
                     />
                   </div>
                 ))}
@@ -161,15 +198,15 @@ const PropertyDetails = () => {
                 focusOnSelect={true}
                 className="-ml-2 mt-4"
               >
-                {data[0]?.images.map((image, index) => (
+                {propertyImages.map((image) => (
                   <div
-                    key={index}
+                    key={image.id}
                     className="h-24 w-24 rounded-md cursor-pointer overflow-hidden"
                   >
                     <img
                       className="w-full h-full object-cover mx-2 rounded-md"
-                      src={image}
-                      alt="image"
+                      src={image.src}
+                      alt="additional-img"
                     />
                   </div>
                 ))}
@@ -178,63 +215,65 @@ const PropertyDetails = () => {
           </div>
         </div>
 
-        <div className="bg-slate-100 -mx-10 rounded-lg">
+        <div className="bg-slate-100 -mx-10 p-4 rounded-lg">
           <div className="mx-10 py-8">
             <h1 className="text-xl font-semibold mb-7">Property Details</h1>
-            <div className="grid  grid-cols-4 gap-10">
+            <div className="grid  grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
+              <div className="flex items-center">
+                <IoCashOutline className="text-lg mr-3" />
+                Security: ₹{propertyDetail.security}
+              </div>
+              <div className="flex items-center">
+                <IoCashOutline className="text-lg mr-3" />
+                Maintenance: ₹{propertyDetail.maintenance}
+              </div>
               <div className="flex items-center">
                 <IoBedOutline className="text-lg mr-3" />
-                {amenities.bedrooms} Bedrooms
+                {propertyDetail.bedroom} Bedrooms
               </div>
               <div className="flex items-center">
                 <PiBathtub className="text-lg mr-3" />
-                {amenities.bathrooms} Bathrooms
+                {propertyDetail.bathroom} Bathrooms
               </div>
               <div className="flex items-center">
                 <PiIntersectSquareDuotone className="text-lg mr-3" />
-                {amenities.area} sq.ft
+                {propertyDetail.carpetArea} sq.ft Area
               </div>
               <div className="flex items-center">
-                <PiArmchair className="text-lg mr-3" />
-                {amenities.furnishing}
+                <IoAlarmOutline className="text-lg mr-3" />
+                {propertyDetail.leaseDuration} Months Lease
               </div>
               <div className="flex items-center">
-                <PiArmchair className="text-lg mr-3" />
-                {amenities.furnishing}
+                <IoCarOutline className="text-lg mr-3" />
+                Parking: {propertyDetail.parking}
               </div>
               <div className="flex items-center">
-                <PiArmchair className="text-lg mr-3" />
-                {amenities.furnishing}
+                <PiStairs className="text-lg mr-3" />
+                Floor Number: {propertyDetail.parking}
               </div>
-              <div className="flex items-center">
-                <PiArmchair className="text-lg mr-3" />
-                {amenities.furnishing}
-              </div>
-              <div className="flex items-center">
-                <PiArmchair className="text-lg mr-3" />
-                {amenities.furnishing}
-              </div>
+
+            </div>
+            <h1 className="text-xl font-semibold mt-12 mb-7">Amenities</h1>
+            <div className="grid  grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-10">
+              {propertyDetail.amenities.map(item => {
+                return (
+                  <div key={item.id} className="flex items-center gap-2">
+                    <IoMdCheckmarkCircleOutline className="w-5 h-5" />
+                    <h3>{_.capitalize(item.lists.name)}</h3>
+                  </div>
+                )
+              })}
             </div>
           </div>
         </div>
 
         <div className="grid grid-cols-1 my-16">
           <div>
-            <h3 className="text-xl w-full text-center font-semibold">
+            <h3 className="text-xl w-full my-4 text-center font-semibold">
               Owner&apos;s Note
             </h3>
-            <p className=" px-32">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut
-              repellendus aliquid, vero aut fugiat dolorem laboriosam mollitia
-              iure reiciendis, accusamus ullam ipsum quaerat veritatis rem atque
-              minus facere architecto accusantium? Lorem ipsum dolor, sit amet
-              consectetur adipisicing elit. Perferendis, similique et
-              consequuntur voluptatem, modi deserunt fuga, adipisci amet nisi
-              maiores dignissimos nulla aliquid quaerat? Ipsam dolore hic odio
-              recusandae distinctio. Lorem ipsum dolor sit amet consectetur
-              adipisicing elit. Atque adipisci tempora illo, dolorem facere
-              cumque consequuntur nulla quo vero ducimus unde cupiditate quasi
-              delectus impedit esse voluptatibus at ex? Expedita!
+            <p className="px-4 lg:px-20">
+              {propertyDetail.propertyDesc}
             </p>
           </div>
         </div>

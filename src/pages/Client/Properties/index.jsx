@@ -11,17 +11,17 @@ const fetcher = (...args) => fetch(...args).then(res => res.json())
 const Properties = () => {
     const searchData = useRecoilValue(searchState);
 
-    const { data: cardData, error, isLoading } = useSWR(`${import.meta.env.VITE_HOST}/api/rental-app/propertyInfos`, fetcher)
+    const { data: cardData, error, isLoading } = useSWR(`${import.meta.env.VITE_HOST}/api/rental-app/appPropertyInfo`, fetcher)
 
     console.log(cardData?.data)
 
-    if(isLoading){
+    if (isLoading) {
         return <div>Loading....</div>
-      }
-    
-      if(error){
+    }
+
+    if (error) {
         return <div>{error}</div>
-      }
+    }
 
     return (
         <div className='w-full flex flex-col items-center'>

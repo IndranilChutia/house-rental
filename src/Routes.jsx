@@ -7,6 +7,8 @@ import LandingPage from "pages/Client/LandingPage";
 import AdminLogin from "pages/Admin/AdminLogin/AdminLogin";
 import { Toaster } from "react-hot-toast";
 import AdminProtected from "./utils/AdminProtected";
+import SuperAdminProtected from "./utils/SuperAdminProtected";
+import LoginSuperAdmin from "pages/SuperAdmin/LoginSuperAdmin";
 
 const ClientSettings = React.lazy(() => import("pages/Client/ClientSettings"));
 const Properties = React.lazy(() => import("pages/Client/Properties"));
@@ -46,17 +48,17 @@ const AppRoutes = () => {
               </>
             }
           />
-          <Route path="/property/:id" element={<PropertyDetails />} />
+          <Route path="/property/:propertyId" element={<PropertyDetails />} />
 
           <Route
             path="*"
             element={
-              <h1>
-                Not Found{" "}
+              <div className="h-screen w-full flex flex-col gap-4 justify-center items-center bg-zinc-100">
+                <span className="font-bold text-xl">(404) You are Lost!!!</span>
                 <Link to="/">
-                  <Button>Back to Home</Button>
+                  <Button>Return Back Home</Button>
                 </Link>
-              </h1>
+              </div>
             }
           />
 
@@ -67,13 +69,16 @@ const AppRoutes = () => {
           <Route path="/admin/listings" element={<AdminProtected><ListingPage /></AdminProtected>} />
           <Route path="/admin/user/info" element={<Personalinfo />} />
           <Route path="/admin/add-property" element={<AdminProtected><AddProperty /></AdminProtected>} />
-          <Route path="/super-admin/dashboard" element={<SALanding />} />
-          <Route path="/super-admin/listings" element={<SAListing />} />
+
+
+          <Route path="/super-admin/login" element={<LoginSuperAdmin />} />
+          <Route path="/super-admin/dashboard" element={<SuperAdminProtected><SALanding /></SuperAdminProtected>} />
+          <Route path="/super-admin/listings" element={<SuperAdminProtected><SAListing /></SuperAdminProtected>} />
           <Route
             path="/super-admin/listing/requests"
-            element={<SAListingReq />}
+            element={<SuperAdminProtected><SAListingReq /></SuperAdminProtected>}
           />
-          <Route path="/super-admin/payment" element={<Log />} />
+          <Route path="/super-admin/payment" element={<SuperAdminProtected><Log /></SuperAdminProtected>} />
         </Routes>
       </BrowserRouter>
     </React.Suspense>

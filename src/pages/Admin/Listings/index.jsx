@@ -7,12 +7,24 @@ import {
   TitleAdmin,
   XCard,
 } from "@components";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { partnerState } from "src/store/atoms/partnerState";
+import { jwtDecode } from "jwt-decode";
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 const ListingPage = () => {
-  const partnerData = useRecoilValue(partnerState)
+  const [partnerData, setPartnerData] = useRecoilState(partnerState)
+
+  const token = localStorage.getItem("partnerToken");
+  useEffect(()=>{
+    const decodedToken = jwtDecode(token);
+    const admintokenId = decodedToken.user.id;
+    console.log(decodedToken)
+    setPartnerData({
+        partnerToken: token,
+        partnerId: admintokenId
+      })
+  },[token])
 
   console.log(partnerData)
   const { data: cardData, error, isLoading } = useSWR(`${import.meta.env.VITE_HOST}/api/rental-app/adminPropertyInfo?adminId=${partnerData?.partnerId}`, fetcher)
