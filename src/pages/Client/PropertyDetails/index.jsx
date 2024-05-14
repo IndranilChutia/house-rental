@@ -1,6 +1,12 @@
+import { useEffect, useMemo, useRef, useState } from "react";
 import Slider from "react-slick/lib/slider";
 import { useParams } from "react-router-dom";
+import useSWR from 'swr';
 import _ from 'lodash'
+import toast from "react-hot-toast";
+import Payment from '../../../services/Payment'
+
+
 import {
   CustomNextArrow,
   CustomPrevArrow,
@@ -8,9 +14,7 @@ import {
   Navbar,
 } from "@components";
 import noImg from '../../../assets/images/noImg.png'
-import { useEffect, useMemo, useRef, useState } from "react";
 import { generateImgLink } from '../../../utils/generateImgLink';
-import useSWR from 'swr';
 
 // Images
 import headerImg from "@images/Header.png";
@@ -38,10 +42,65 @@ const PropertyDetails = () => {
   let { propertyId } = useParams()
   // console.log(propertyId)
 
+  const payment = new Payment()
+
+
+  // * API Calls
+
+  // ? Fetch Properties
   const { data, error, isLoading } = useSWR(`${import.meta.env.VITE_HOST}/api/rental-app/propertyInfo?id=${propertyId}`, fetcher)
   const propertyDetail = useMemo(() => data?.data || [], [data]);
 
   console.log(propertyDetail)
+
+
+  // ? Razorpay Object
+  const payRent = async (id) => {
+    try {
+      let order = await payment.createOrder(id);
+      if (order?.statusCode && order.statusCode == "200") {
+        let options = {
+          ...order.data,
+          handler: async function (response) {
+            let order = await payment.validatePayment(response);
+            if (order?.statusCode && order.statusCode == "200") {
+              alert("Payment has been successfully done! Please Reload");
+              toast.success((t) => (
+                setTimeout(() => {
+                  toast.dismiss(t.id)
+                  window.location.reload()
+
+                }, 4000),
+                <span>
+                  Payment Successful! 🎉 Reloading...
+                </span>
+              ),
+                { duration: 4000 });
+            } else if (
+              order?.statusCode &&
+              order.statusCode == "203"
+            ) {
+              alert(order?.error);
+            }
+          },
+        };
+        var razorpayObject = new Razorpay(options);
+        razorpayObject.on("payment.failed", function (response) { });
+        razorpayObject.open();
+      } else if (order?.statusCode && order.statusCode == "203") {
+        alert(order?.error);
+      }
+    } catch (error) {
+      alert(error);
+    }
+  }
+
+
+
+
+
+
+  // Utility Functions
 
   const propertyImages = propertyDetail?.img?.map((item, index) => ({
     id: index + 1,
@@ -61,7 +120,7 @@ const PropertyDetails = () => {
     })
   }
 
-
+  // Carousel Settings
   const [nav1, setNav1] = useState(null);
   const [nav2, setNav2] = useState(null);
   let sliderRef1 = useRef(null);
@@ -81,6 +140,9 @@ const PropertyDetails = () => {
     setNav1(sliderRef1);
     setNav2(sliderRef2);
   }, [propertyDetail]);
+
+
+
 
 
   if (isLoading) {
@@ -157,8 +219,8 @@ const PropertyDetails = () => {
                 </div>
                 <div className="flex flex-col gap-1.5">
                   <h3 className="font-semibold">John Doe</h3>
-                  <button className="px-2 py-1 border-2 border-slate-600 rounded-full text-sm hover:bg-slate-100 transition-all">
-                    Contact Owner
+                  <button onClick={(e) => payRent(propertyId)} className="px-2 py-1 border-2 border-slate-600 rounded-full text-sm hover:bg-slate-100 transition-all">
+                    Pay Rent Now!
                   </button>
                 </div>
               </div>
