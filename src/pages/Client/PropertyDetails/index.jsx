@@ -30,6 +30,7 @@ import {
   PiStairs,
 } from "react-icons/pi";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
+import { useAuth } from "@clerk/clerk-react";
 
 const ownerImg =
   "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=2960&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
@@ -41,6 +42,9 @@ const PropertyDetails = () => {
 
   let { propertyId } = useParams()
   // console.log(propertyId)
+
+  const { userId } = useAuth();
+  console.log(userId)
 
   const payment = new Payment()
 
@@ -55,14 +59,17 @@ const PropertyDetails = () => {
 
 
   // ? Razorpay Object
-  const payRent = async (id) => {
+  const payRent = async (_propertyId) => {
     try {
-      let order = await payment.createOrder(id);
+      let order = await payment.createOrder(userId, _propertyId);
+      console.log(order)
       if (order?.statusCode && order.statusCode == "200") {
         let options = {
           ...order.data,
           handler: async function (response) {
-            let order = await payment.validatePayment(response);
+            console.log(response.razorpay_payment_id)
+            let order = await payment.validatePayment(userId, response);
+            console.log(order)
             if (order?.statusCode && order.statusCode == "200") {
               alert("Payment has been successfully done! Please Reload");
               toast.success((t) => (
@@ -85,6 +92,7 @@ const PropertyDetails = () => {
           },
         };
         var razorpayObject = new Razorpay(options);
+        console.log("=======", options)
         razorpayObject.on("payment.failed", function (response) { });
         razorpayObject.open();
       } else if (order?.statusCode && order.statusCode == "203") {
@@ -145,6 +153,7 @@ const PropertyDetails = () => {
 
 
 
+
   if (isLoading) {
     return <div>Loading....</div>
   }
@@ -152,6 +161,8 @@ const PropertyDetails = () => {
   if (error) {
     return <div>{error}</div>
   }
+
+
 
   return (
     <div className="w-full flex flex-col items-center">

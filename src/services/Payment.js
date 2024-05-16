@@ -6,14 +6,14 @@ class Payment {
     }
 
     // * Order Creation
-    async createOrder(id) {
+    async createOrder(userId, propertyId) {
         try {
             let body = {
-                subscriptionId: id,
+                userId: userId,
+                propertyId: propertyId,
             };
             const response = await axios.post(`${this.apiUrl}/order`, body);
-            console.log(response);
-            return response;
+            return response.data ? response.data : response;
         } catch (error) {
             console.error("Error Creating Order:", error);
             throw error;
@@ -22,24 +22,25 @@ class Payment {
 
 
     // * Payment Validation
-    async validatePayment(payment) {
+    async validatePayment(userId, payment) {
         try {
             // razorpay_order_id: "order_NTlwnuqc6CPQ3N";
             // razorpay_payment_id: "pay_NTlyJpgbXD5ni5";
             // razorpay_signature;
+            console.log(payment?.razorpay_signature);
             let option = {
                 headers: {
                     "x-razorpay-signature": payment?.razorpay_signature,
                 },
             };
             let body = {
+                userId: userId,
                 order_id: payment?.razorpay_order_id,
                 payment_id: payment?.razorpay_payment_id,
             };
-            const response = await post(
-                `${this.apiUrl}/verifyOrder`,
+            const response = await axios.post(
+                `${this.apiUrl}/verify`,
                 body,
-                {},
                 option
             );
 
