@@ -1,9 +1,7 @@
 import { FilterHorizontal, Footer, FullSearch, Navbar, VerticalCard } from '@components';
-import React, { useEffect, useState } from 'react';
 import headerImg from '@images/Header.png'
 import { useRecoilValue } from 'recoil';
 import { searchState } from 'src/store/atoms/searchState';
-import searchDemo from '../../../static/searchDemo.json'
 import useSWR from 'swr';
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())

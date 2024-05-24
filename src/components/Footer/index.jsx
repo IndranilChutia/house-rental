@@ -57,7 +57,7 @@ const Footer = () => {
                         </span>
                         <span className='text-gray-500 sm:text-center dark:text-gray-400'>|</span>
 
-                        <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">Made with &nbsp; ❤️ &nbsp;by <a href="https://crudstudio.com" className="hover:underline font-bold">CrudStudio.com</a>
+                        <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">Made with &nbsp; ❤️ &nbsp;by <a href="https://infossile.com" className="hover:underline font-bold">Infossile.com</a>
                         </span>
                     </div>
                     <div className="flex mt-4 sm:justify-center sm:mt-0">
