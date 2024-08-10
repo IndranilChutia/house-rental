@@ -9,6 +9,7 @@ import { Toaster } from "react-hot-toast";
 import AdminProtected from "./utils/AdminProtected";
 import SuperAdminProtected from "./utils/SuperAdminProtected";
 import LoginSuperAdmin from "pages/SuperAdmin/LoginSuperAdmin";
+import PrivacyPolicy from "pages/Client/PrivacyPolicy";
 
 const ClientSettings = React.lazy(() => import("pages/Client/ClientSettings"));
 const Properties = React.lazy(() => import("pages/Client/Properties"));
@@ -49,6 +50,7 @@ const AppRoutes = () => {
             }
           />
           <Route path="/property/:propertyId" element={<PropertyDetails />} />
+          <Route path="/privacypolicy" element={<PrivacyPolicy />} />
 
           <Route
             path="*"

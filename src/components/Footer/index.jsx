@@ -40,10 +40,10 @@ const Footer = () => {
                             <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Legal</h2>
                             <ul className="text-gray-500 dark:text-gray-400 font-medium">
                                 <li className="mb-4">
-                                    <a href="#" className="hover:underline">Privacy Policy</a>
+                                    <Link to={"https://www.termsfeed.com/live/7b77c950-3560-4b6a-901b-284fec061c13"} target="_blank" className="hover:underline">Privacy Policy</Link>
                                 </li>
                                 <li>
-                                    <a href="#" className="hover:underline">Terms &amp; Conditions</a>
+                                    <Link to={"https://www.termsfeed.com/live/9d47bae1-e768-48d5-b3f6-cc3f3beea04c"} target='_blank' className="hover:underline">Terms &amp; Conditions</Link>
                                 </li>
                             </ul>
                         </div>

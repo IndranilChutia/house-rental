@@ -225,9 +225,9 @@ const FilterHorizontal = () => {
             <hr className='border-gray-300 h-14 border-[0.1px] rounded-xl mx-6 lg:mx-10' />
 
             {/* Amenities */}
-            <div className='h-full w-full flex-auto grid grid-flow-col gap-4 md:gap-6 lg:gap-8 overflow-scroll'>
+            <div className='h-full w-full flex-auto grid grid-flow-col gap-4 md:gap-6 lg:gap-8 overflow-x-scroll overflow-y-hidden horizontalAmenitiesFilter'>
                 {amenityOptions.map((item) => (
-                    <label
+                    <div
                         key={item.title}
                         className={`cursor-pointer flex flex-col items-center transition-all ease-in duration-100 ${clickedButton === item.title ? 'scale-[0.93]' : ''
                             }`}
@@ -247,7 +247,7 @@ const FilterHorizontal = () => {
                             <span className='text-2xl lg:text-3xl'>{item.icon}</span>
                             <h3 className={`text-[10px] lg:text-xs mt-1 text-nowrap`}>{item.title}</h3>
                         </span>
-                    </label>
+                    </div>
                 ))}
             </div>
         </div>
